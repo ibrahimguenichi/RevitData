@@ -10,7 +10,7 @@ namespace RevitData.ApplicationCore
     public class DocumentStorage
     {
         private static DocumentStorage _instance;
-        private Document _document;
+        public static string Title;
 
         private DocumentStorage() { }
 
@@ -25,13 +25,6 @@ namespace RevitData.ApplicationCore
                 }
                 return _instance;
             }
-        }
-
-        // Property to get or set the document
-        public Document CurrentDocument
-        {
-            get { return _document; }
-            set { _document = value; }
         }
     }
 }

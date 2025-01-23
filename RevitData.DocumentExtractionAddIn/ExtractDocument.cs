@@ -3,6 +3,7 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using RevitData.ApplicationCore;
+using RevitData.Infrastructure;
 
 namespace DocumentExtractionAddIn
 {
@@ -14,10 +15,17 @@ namespace DocumentExtractionAddIn
             //Get application and document objects  
             UIApplication uiapp = commandData.Application;
             Document doc = uiapp.ActiveUIDocument.Document;
+            
+            DocumentStorage.Title = doc.Title;
+            Console.WriteLine($"----------{doc.Title}-----------");
 
-            DocumentStorage.Instance.CurrentDocument = doc;
+            Autodesk.Revit.UI.TaskDialog.Show("Revit", $"Document has been successfully extracted\n Title: {doc.Title}");
 
-            TaskDialog.Show("Revit", "Document has been successfully extracted");
+            DataAccess db = new DataAccess();
+            Task.Run(async () =>
+            {
+                await db.InsertDocumentAsync<RevitData.ApplicationCore.Domain.Document>("Document", new RevitData.ApplicationCore.Domain.Document() { Title = doc.Title });
+            }).Wait();
 
             return Result.Succeeded;
         }

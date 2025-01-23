@@ -16,7 +16,7 @@ namespace RevitData.TestConsole
 
             uiAutomationService.AutomateDocumentExtraction("C:\\Users\\ibrah\\OneDrive\\Desktop\\TestRevitData\\rac_basic_sample_project.rvt", "Lab1PlaceGroup");
 
-            Console.WriteLine(DocumentStorage.Instance.CurrentDocument.Title.ToString());
+            //Console.WriteLine(DocumentStorage.Instance.CurrentDocument.Title.ToString());
         }
     }
 }

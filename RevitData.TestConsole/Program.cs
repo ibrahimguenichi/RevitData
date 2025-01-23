@@ -1,4 +1,5 @@
-﻿using RevitData.TestConsole;
+﻿using RevitData.ApplicationCore;
+using RevitData.TestConsole;
 using System;
 
 namespace MyConsoleApp
@@ -7,7 +8,10 @@ namespace MyConsoleApp
     {
         static void Main(string[] args)
         {
+            
+
             ExecuteDocumentExtraction.ExtractDocument();
+            Console.WriteLine($"-----{DocumentStorage.Title}-------");
         }
     }
 }
