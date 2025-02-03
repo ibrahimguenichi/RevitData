@@ -10,7 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="RestSharp" Version="112.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\RevitData.ApplicationCore\RevitData.ApplicationCore.csproj" />
+		<ProjectReference Include="..\RevitData.Infrastructure\RevitData.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -24,6 +30,12 @@
 			<Private>True</Private>
 			<CopyLocal>true</CopyLocal>
 		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

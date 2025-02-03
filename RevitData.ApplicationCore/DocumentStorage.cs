@@ -7,24 +7,11 @@ using System.Threading.Tasks;
 
 namespace RevitData.ApplicationCore
 {
-    public class DocumentStorage
+    public class SingletonStorage
     {
-        private static DocumentStorage _instance;
-        public static string Title;
+        private static SingletonStorage _instance;
+        public static SingletonStorage Instance => _instance ??= new SingletonStorage();
 
-        private DocumentStorage() { }
-
-        // Public static property to access the singleton instance
-        public static DocumentStorage Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new DocumentStorage();
-                }
-                return _instance;
-            }
-        }
+        public string DocumentTitle { get; set; }
     }
 }

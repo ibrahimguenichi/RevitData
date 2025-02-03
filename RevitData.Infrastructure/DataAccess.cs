@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
@@ -9,18 +10,16 @@ namespace RevitData.Infrastructure
     {
         private readonly IMongoDatabase _database;
 
-        public DataAccess()
+        public DataAccess(IOptions<MongoDBSettings> mongoSettings)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
+            var client = new MongoClient(mongoSettings.Value.ConnectionString);
+            _database = client.GetDatabase(mongoSettings.Value.DatabaseName);
+        }
 
-            string ConnectionString = configuration.GetSection("MongoDBSettings:ConnectionString").Value;
-            string DatabaseName = configuration.GetSection("MongoDBSettings:DatabaseName").Value;
-
-            var client = new MongoClient(ConnectionString);
-            _database = client.GetDatabase(DatabaseName);
+        public DataAccess(string connectionString, string databaseName)
+        {   
+            var client = new MongoClient(connectionString);
+            _database = client.GetDatabase(databaseName);
         }
 
         public IMongoCollection<T> ConnectToMongo<T>(in string collection)
